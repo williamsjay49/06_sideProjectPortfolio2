@@ -1,9 +1,7 @@
 import React from "react";
+import { words } from "../constants";
+import Button from "../components/Button";
 
-const words = [
-  { text: "Ideas", imgPath: "/images/ideas.svg" },
-  { text: "Concepts", imgPath: "/images/concepts.svg" },
-];
 const Hero = () => {
   return (
     <section id="hero" className="relative overflow-hidden">
@@ -11,6 +9,7 @@ const Hero = () => {
         <img src="/images/bg.png" alt="background" />
       </div>
       <div className="hero-layout">
+        {/*LEFT: HERO CONTENT*/}
         <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
           <div className="flex flex-col gap-7">
             <div className="hero-text">
@@ -37,8 +36,19 @@ const Hero = () => {
               <h1>into Real Projects</h1>
               <h1>that Deliver Results</h1>
             </div>
+            <p className="text-white-50 md:text-xl relative z-10">
+              Hi, I'm Johnson, a developer based in Korea with a passion for
+              code.
+            </p>
+            <Button
+              text="See my Work"
+              className="md:w-80 md:h-16 w-60 h-12"
+              id="button"
+            />
           </div>
         </header>
+
+        {/*RIGHT: 3D MODEL*/}
       </div>
     </section>
   );
