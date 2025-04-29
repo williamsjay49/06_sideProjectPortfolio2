@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { navLinks } from "../constants";
+import { navLinks } from "../constants/index.js";
 
 const NavBar = () => {
   const [scrolled, setScrolled] = React.useState(false);
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 10;
-      setScrolled(true);
+      setScrolled(isScrolled);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -16,7 +16,7 @@ const NavBar = () => {
     <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}>
       <div className="inner">
         <a className="logo" href="#hero">
-          JSon | DEV
+          {`J S { } n`}
         </a>
         <nav className="desktop">
           <ul>
