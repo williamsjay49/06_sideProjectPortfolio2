@@ -2,52 +2,48 @@ import emailjs from "@emailjs/browser";
 
 import ContactExperience from "../components/ContactExperience";
 import TitleHeader from "../components/TitleHeader";
-import { useState } from "react";
+import { useState, useRef } from "react";
 const Contact = () => {
   const formRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Show loading state
+
     try {
       await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
-    } catch (error) {
-      console.log("EMAILJS ERROR,", error);
-    } finally {
-      setLoading(false);
-    }
 
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
+      // Reset form and stop loading
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error); // Optional: show toast
+    } finally {
+      setLoading(false); // Always stop loading, even on error
+    }
   };
+
   return (
     <section id="contact" className="flex-center section-padding">
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="Get in Touch-Let's Connect"
-          subtitle="💬 Have a question or ideas? Let's talk! 🚀"
+          sub="💬 Have a question or ideas? Let's talk! 🚀"
         />
         <div className="mt-16 grid-12-cols">
           <div className="xl:col-span-5">
@@ -95,13 +91,12 @@ const Contact = () => {
                 </div>
                 <button type="submit" disabled={loading}>
                   <div className="cta-button group">
-                    <div className="bg-circle">
-                      <p className="text">
-                        {loading ? "Sending..." : "Send Message"}
-                      </p>
-                      <div className="arrow-wrapper">
-                        <img src="/images/arrow-down.svg" alt="arrow" />
-                      </div>
+                    <div className="bg-circle" />
+                    <p className="text">
+                      {loading ? "Sending..." : "Send Message"}
+                    </p>
+                    <div className="arrow-wrapper">
+                      <img src="/images/arrow-down.svg" alt="arrow" />
                     </div>
                   </div>
                 </button>
@@ -110,8 +105,9 @@ const Contact = () => {
           </div>
 
           <div className="xl:col-span-7 min-h-96">
-            <div className="w-full h-full bg-[#cd7c2e] hover:cursor-grab rounded-3xl overflow-hidden"></div>
-            <ContactExperience />
+            <div className="w-full h-full bg-[#cd7c2e] hover:cursor-grab rounded-3xl overflow-hidden">
+              <ContactExperience />
+            </div>
           </div>
         </div>
       </div>

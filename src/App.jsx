@@ -6,6 +6,8 @@ import Hero from "./sections/Hero";
 import ShowcaseSection from "./sections/ShowcaseSection";
 import TechStack from "./sections/TechStack";
 import Testimonials from "./sections/Testimonials";
+import Footer from "./sections/Footer";
+
 import Contact from "./sections/Contact";
 const App = () => {
   return (
@@ -19,6 +21,7 @@ const App = () => {
       <TechStack />
       <Testimonials />
       <Contact />
+      <Footer />
     </>
   );
 };
